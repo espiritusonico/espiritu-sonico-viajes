@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Viajes Sonoros · Espíritu Sónico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Portal de viajes sonoros de Espíritu Sónico. Acceso a experiencias guiadas y sonoras para acompañar tus rituales."
+  />
+
+  <!-- Fuentes de Google (puedes cambiarlas luego si quieres) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --violeta-base: #4b2c5e;
+      --violeta-oscuro: #2b1638;
+      --dorado-suave: #d6b787;
+      --crema: #f5efe6;
+      --texto-principal: #f7f4ff;
+      --texto-secundario: #c9bfdc;
+      --borde-suave: rgba(255, 255, 255, 0.08);
+      --blur-fondo: blur(22px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(circle at top, #6b3c8a 0, transparent 55%),
+        radial-gradient(circle at bottom, #2a123c 0, #0c0414 65%);
+      color: var(--texto-principal);
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px 40px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .card-layout {
+      position: relative;
+      border-radius: 24px;
+      border: 1px solid var(--borde-suave);
+      background: linear-gradient(
+        145deg,
+        rgba(16, 6, 30, 0.88),
+        rgba(35, 11, 60, 0.94)
+      );
+      box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(106, 63, 152, 0.45);
+      padding: 24px 18px 22px;
+      backdrop-filter: var(--blur-fondo);
+    }
+
+    /* Halo decorativo */
+    .card-layout::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(214, 183, 135, 0.18);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .logo-mini {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--texto-secundario);
+      margin-bottom: 2px;
+    }
+
+    .titulo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 26px;
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--crema);
+      margin-bottom: 6px;
+    }
+
+    .subtitulo {
+      font-size: 13px;
+      color: var(--texto-secundario);
+      line-height: 1.4;
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .separador {
+      width: 54px;
+      height: 1px;
+      margin: 16px auto 14px;
+      background-image: linear-gradient(
+        to right,
+        transparent,
+        var(--dorado-suave),
+        transparent
+      );
+      position: relative;
+    }
+
+    .separador::after {
+      content: "▲";
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--dorado-suave);
+      opacity: 0.9;
+    }
+
+    .intro-texto {
+      font-size: 13px;
+      color: var(--texto-secundario);
+      line-height: 1.5;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .aviso {
+      font-size: 11px;
+      color: var(--texto-secundario);
+      text-align: center;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 183, 135, 0.45);
+      font-size: 11px;
+      color: var(--dorado-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .listado-viajes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .viaje {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: radial-gradient(
+          circle at top left,
+          rgba(214, 183, 135, 0.12),
+          transparent 55%
+        ),
+        rgba(15, 6, 30, 0.92);
+      padding: 12px 12px 10px;
+      cursor: pointer;
+      transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        border-color 0.15s ease-out,
+        background 0.15s ease-out;
+    }
+
+    .viaje:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 22px rgba(106, 63, 152, 0.4);
+      border-color: rgba(214, 183, 135, 0.8);
+    }
+
+    .viaje-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .viaje-titulo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 17px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--crema);
+    }
+
+    .viaje-tag {
+      font-size: 11px;
+      color: var(--dorado-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+    .viaje-detalle {
+      font-size: 12px;
+      color: var(--texto-secundario);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      font-size: 11px;
+      color: rgba(236, 225, 255, 0.85);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .meta span {
+      opacity: 0.9;
+    }
+
+    .meta-dot::before {
+      content: "•";
+      margin-right: 4px;
+      color: var(--dorado-suave);
+      opacity: 0.8;
+    }
+
+    .botones {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+      flex: 1;
+      min-width: 0;
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .btn-primario {
+      background: linear-gradient(135deg, #d6b787, #f0d7a6);
+      color: #351c10;
+      font-weight: 500;
+    }
+
+    .btn-primario span.icon {
+      font-size: 13px;
+    }
+
+    .btn-secundario {
+      background: rgba(19, 7, 38, 0.9);
+      border: 1px solid rgba(214, 183, 135, 0.4);
+      color: var(--dorado-suave);
+      font-weight: 400;
+    }
+
+    .btn-secundario span.icon {
+      font-size: 13px;
+    }
+
+    .viaje audio {
+      width: 100%;
+      margin-top: 8px;
+      outline: none;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--texto-secundario);
+    }
+
+    footer a {
+      color: var(--dorado-suave);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 600px) {
+      .logo-img {
+      width: 110px;  
+      max-width: none;
+    }
+
+
+      .card-layout {
+        padding: 28px 26px 24px;
+        border-radius: 26px;
+      }
+
+      .titulo {
+        font-size: 30px;
+      }
+
+      .viaje {
+        padding: 14px 14px 12px;
+      }
+
+      .viaje-titulo {
+        font-size: 18px;
+      }
+
+      .logo-img {
+        width: 120px;        
+        max-width: 35%;     
+        margin: 0 auto 6px;
+        display: block;
+        opacity: 0.9;
+      }
+
+      .pill-footer {
+        display: inline-block;
+        margin: 18px auto 0;
+        padding: 4px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(214, 183, 135, 0.35);
+        color: var(--dorado-suave);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card-layout">
+      <header>
+       <img src="assets/logo.png" alt="Espíritu Sónico" class="logo-img" />
+
+       <div class="logo-mini">Espíritu Sónico</div>
+
+       <h1 class="titulo">Viajes Sonoros</h1>
+
+       <p class="subtitulo">
+         Portal de experiencias sonoras descargables creadas para acompañar tu ritual,
+         tu pausa y tus silencios.
+       </p>
+      </header>
+
+
+
+      <div class="separador"></div>
+
+      <p class="intro-texto">
+       Antes de comenzar, encendé el sahumerio que te acompaña.
+       El fuego despierta la intención, el aroma sostiene el clima,
+       y el sonido completa el ritual.
+       Usar auriculares potencia la inmersión.
+      </p>
+
+      <p class="intro-texto">
+       Cada viaje ha sido creado desde una práctica ceremonial: capas de atmósferas,
+       respiración, silencios intencionales y frecuencias que acompañan distintas
+       etapas del cuerpo y del ánimo.
+      </p>
+
+      <p class="intro-texto">
+       Los sahumerios Espíritu Sónico están hechos con resinas naturales molidas a mano
+       y una selección cuidadosa de hierbas. Cada mezcla atraviesa un proceso artesanal
+       minucioso que busca unir aroma, intención y energía.
+      </p>
+ 
+      <div class="separador"></div>
+
+      <p class="aviso">
+       <em>Abrí este portal cuando necesites refugio, calma o claridad.
+       El sonido sabe sostenerte donde las palabras no llegan.</em>
+      </p>
+
+      <section class="listado-viajes">
+        <!--
+  ===========================
+  VIAJE 1 — OCULTO POR AHORA
+  ===========================
+  <article class="viaje">
+    <div class="viaje-header">
+      <h2 class="viaje-titulo">Raíz y Respiración</h2>
+      <span class="viaje-tag">Tierra · Calma</span>
+    </div>
+    <p class="viaje-detalle">
+      Un viaje suave para volver al cuerpo, aflojar la mente y enraizarte
+      antes o después de un día intenso.
+    </p>
+    <div class="meta">
+      <span class="meta-dot">Duración aproximada: 12 minutos</span>
+      <span class="meta-dot">Ideal para sahumerios de lavanda, eucaliptus y menta</span>
+    </div>
+    <div class="botones">
+      <a class="btn-primario" href="viajes/raiz-y-respiracion.mp3" download>
+        <span class="icon">⬇</span><span>Descargar viaje</span>
+      </a>
+    </div>
+    <audio controls preload="none">
+      <source src="viajes/raiz-y-respiracion.mp3" type="audio/mpeg" />
+      Tu navegador no soporta la reproducción de audio.
+    </audio>
+  </article>
+  -->
+
+  <!--
+  ===========================
+  VIAJE 2 — OCULTO POR AHORA
+  ===========================
+  <article class="viaje">
+    <div class="viaje-header">
+      <h2 class="viaje-titulo">Niebla Sagrada</h2>
+      <span class="viaje-tag">Purificación</span>
+    </div>
+    <p class="viaje-detalle">
+      Una atmósfera más profunda, ideal para limpiar el campo energético,
+      soltar cargas y abrir un espacio sutil de protección.
+    </p>
+    <div class="meta">
+      <span class="meta-dot">Duración aproximada: 18 minutos</span>
+      <span class="meta-dot">Ideal para sahumerios de salvia, benjuí y palo santo</span>
+    </div>
+    <div class="botones">
+      <a class="btn-primario" href="viajes/niebla-sagrada.mp3" download>
+        <span class="icon">⬇</span><span>Descargar viaje</span>
+      </a>
+    </div>
+    <audio controls preload="none">
+      <source src="viajes/niebla-sagrada.mp3" type="audio/mpeg" />
+      Tu navegador no soporta la reproducción de audio.
+    </audio>
+  </article>
+  -->
+
+  <!-- ===============================
+       VIAJE ACTIVO: SILENCIO ESTELAR
+       =============================== -->
+        <article class="viaje">
+          <div class="viaje-header">
+            <h2 class="viaje-titulo">Silencio Estelar</h2>
+            <span class="viaje-tag">Sueño · Integración</span>
+          </div>
+          <p class="viaje-detalle">
+            Frecuencias suaves y espaciales para entrar en descanso profundo,
+            ideal para antes de dormir o después de un ritual.
+          </p>
+          <div class="meta">
+            <span class="meta-dot">Duración aproximada: 20 minutos</span>
+            <span class="meta-dot">Para cualquier sahumerio que te acompañe</span>
+          </div>
+          <div class="botones">
+            <a class="btn-primario" href="https://espiritu-sonico-audio.fly.dev/download/silencio-estelar" download>
+              <span class="icon">⬇</span><span>Descargar viaje</span>
+            </a>
+          </div>
+          <audio controls preload="none">
+            <source src="https://espiritu-sonico-audio.fly.dev/audio/silencio-estelar.mp3" type="audio/mpeg" />
+            Tu navegador no soporta la reproducción de audio.
+          </audio>
+        </article>
+      </section>
+
+      <footer>
+       <p>
+         Gracias por entrar al templo sonoro.  
+         Más rituales y novedades en
+        <a href="https://www.instagram.com/espiritu.sonico" target="_blank">@espiritu.sonico</a>
+       </p>
+
+       <div class="pill-footer">Portal de acceso · QR</div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
